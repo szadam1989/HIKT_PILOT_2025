@@ -85,9 +85,10 @@ HTTAG$DFAA100_28 <- gsub("\\.", "-", HTTAG$DFAA100_28)
 HTTAG$DFAA100_29 <- gsub("\\.", "-", HTTAG$DFAA100_29)
 HTTAG$DFAA100_30 <- gsub("\\.", "-", HTTAG$DFAA100_30)
 
-ALAP <- cbind(ALAP, ALAP %>% left_join(LAKOS, by = c("SORSZAM" = "PERSID")) %>% select("LAKOSAZON"))
-ADAT <- cbind(ADAT, ADAT %>% left_join(LAKOS, by = c("SORSZAM" = "PERSID")) %>% select("LAKOSAZON"))
-HTTAG <- cbind(HTTAG, HTTAG %>% left_join(LAKOS, by = c("SORSZAM" = "PERSID")) %>% select("LAKOSAZON"))
+
+ALAP %>% left_join(LAKOS, by = c("SORSZAM" = "PERSID")) %>% mutate(LAKOSAZON = LAKOSAZON) -> ALAP
+ADAT %>% left_join(LAKOS, by = c("SORSZAM" = "PERSID")) %>% mutate(LAKOSAZON = LAKOSAZON) -> ADAT
+HTTAG %>% left_join(LAKOS, by = c("SORSZAM" = "PERSID")) %>% mutate(LAKOSAZON = LAKOSAZON) -> HTTAG
 
 ALAP$MDD20 <- ALAP$LAKOSAZON
 ALAP <- ALAP[, !(colnames(ALAP) %in% c("LAKOSAZON"))]
